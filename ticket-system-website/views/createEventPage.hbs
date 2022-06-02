@@ -1,0 +1,91 @@
+
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Create Event</title>
+		<meta name="description" content="form to create new event">
+		<meta name="author" content="Marton Banfi">
+		<link href="/style.css" type="text/css" rel="stylesheet" />
+		<script type="module" src="/main.js"></script>
+	</head>
+	<body>
+		<header>
+			<nav>
+				<a href="/"><img src='../logo_bp_sportarena.png' onclick="/home"></a>
+				<ol>
+					<li class="logInName">Logged in as {{authorisedName}} - ({{userRole}}) </li>
+					<li><a href="/">Market Place</a></li>
+					<li ><a href="/secondaryMarket">Secondary Market</a></li>
+					<li><a href="/myNFTTickets">Owned Tickets</a></li>
+					<li class="account"><a href="/account">Account</a>
+						<ol class="dropdown">
+							<li class="logInName">Credit: £{{balanceOfUser}}</li>
+							<li class="now"><a href="/createEventPage">Create Event</a></li>
+							<li><a href="/logout">Log out</a></li>
+						</ol>
+					</li>
+				</ol>
+			</nav>
+		</header>
+		<section>
+			<h2>Create a new Event</h2>
+			<hr>
+			<h2><button type="button" onClick="location.href='/'">Go back to the home page</button></h2>
+		</section>
+	<main>
+		<form action="/createEvent" method="post" enctype="multipart/form-data">
+			<p>Creating a new event...! Please provide the neccessary details for hosting your event! </p>
+			<p>
+				<label for="eventName">Name of your event:</label><br />
+				<input type="text" name="eventName" placeholder="Name of your event:" value="{{body.name}}" autofocus required>
+			</p>
+
+			<p>
+				<label for="sellerFeeToPublisher">Seller fee:</label><br />
+				<label for="sellerFeeToPublisher">(you will get that percentage of the price it was reselled for on the secondary market):</label><br />
+				<input type="range" min="1" max="20" value="7" name="sellerFeeToPublisher" id="sellerFeeToPublisher">
+					<label>Fee:</label><label id="number"></label>
+					<script>
+						let slider_sellerFeeToPublisher = document.getElementById("sellerFeeToPublisher");
+						let valueNumber_sellerFeeToPublisher = document.getElementById("number");
+						valueNumber_sellerFeeToPublisher.innerHTML = slider_sellerFeeToPublisher.value;
+						slider_sellerFeeToPublisher.oninput = function() {valueNumber_sellerFeeToPublisher.innerHTML = this.value;}
+					</script>
+			</p>
+			<p>
+				<label for="maximumTicketSellable">Capacity of the event:</label>
+				<input type="number" id="maximumTicketSellable" name="maximumTicketSellable" min="10">
+			</p>
+			<p>
+				<label for="currentPriceOfTicket">Price of tickets: £</label>
+				<input type="number" id="currentPriceOfTicket" name="currentPriceOfTicket" min="1">
+			</p>
+			<p>
+				<label>Event promo image:</label>
+				<label for="eventImage_uploaded">Upload file</label>
+				<input type="file" id="eventImage_uploaded" name="eventImage_uploaded" accept="image/*" required/>
+				<img src='question_mark_placeholder.png'>
+			</p>
+			<p>
+				<label for="startDateOfEvent">Starting Date:</label><br />
+				<input type="date" name="startDateOfEvent" min="1500-01-01" required>
+			</p>
+			<p>
+				<label for="endDateOfEvent">Ending Date:</label><br />
+				<input type="date" name="endDateOfEvent" min="1500-01-01" required>
+			</p>
+			<p>
+				<label for="locationOfEvent">Location:</label><br />
+				<input type="text" name="locationOfEvent" placeholder="Location" value="{{body.name}}" autofocus required>
+			</p>
+			
+			<!-- hidden transporting the converted base 64 image -->			
+			<input type="hidden" name="eventImage" id="eventImage" value="placeholder" />
+			<p><input type="submit" value="Create Event"></p>
+		</form>
+	</main>
+	</body>
+	
+</html>

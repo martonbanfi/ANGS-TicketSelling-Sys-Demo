@@ -1,0 +1,101 @@
+
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Owned Tickets</title>
+		<meta name="description" content="Owned Tickets page of the ticket selling system">
+		<meta name="author" content="Marton Banfi">
+		<link href="/style.css" type="text/css" rel="stylesheet" />
+		<script type="module" src="/main.js"></script>
+	</head>
+	<body>
+		<header>
+			{{#if doesCustomer}}
+			{{#if authorisedName}}
+				<nav>
+					<a href="/"><img src='logo_bp_sportarena.png' onclick="/home"></a>
+					<ol>
+						<li class="logInName">Logged in as {{authorisedName}} - ({{userRole}}) </li>
+						<li><a href="/">Market Place</a></li>
+						<li class="now"><a href="/secondaryMarket">Secondary Market</a></li>
+						<li><a href="/myNFTTickets">Owned Tickets</a></li>
+						<li class="account"><a>Account</a>
+							<ol class="dropdown">
+								<li class="logInName">Credit: £{{balanceOfUser}}</li>
+								<li><a href="/logout">Log out</a></li>
+							</ol>
+						</li>
+					</ol>
+				</nav>
+			{{else}}
+				<nav>
+					<a href="/"><img src='logo_bp_sportarena.png' onclick="/home"></a>
+					<ol>
+						<li><a href="/">Market Place</a></li>
+						<li><a href="/login">Log in</a></li>
+					</ol>
+				</nav>
+			{{/if}}
+			{{else}}
+			{{#if authorisedName}}
+				<nav>
+					<a href="/"><img src='logo_bp_sportarena.png' onclick="/home"></a>
+					<ol>
+						<li class="logInName">Logged in as {{authorisedName}} - ({{userRole}}) </li>
+						<li class="now"><a href="/">Market Place</a></li>
+						<li><a href="/secondaryMarket">Secondary Market</a></li>
+						<li class="account"><a>Account</a>
+							<ol class="dropdown">
+								<li class="logInName">Credit: £{{balanceOfUser}}</li>
+								<li><a href="/createEventPage">Create Event</a></li>
+								<li><a href="/logout">Log out</a></li>
+							</ol>
+						</li>
+					</ol>
+				</nav>
+			{{else}}
+				<nav>
+					<a href="/"><img src='logo_bp_sportarena.png' onclick="/home"></a>
+					<ol>
+						<li><a href="/">MarketPlace</a></li>
+						<li><a href="/login">Log in</a></li>
+					</ol>
+				</nav>
+			{{/if}}
+		{{/if}}
+		</header>
+		<section>
+			<h2>Secondary Market:</h2>
+			<hr>
+			<h2>Trade in, buy or resell for profit!</h2>
+		</section>
+	<main>
+		{{#if authorisedName}}
+			{{#each allOwnedNFTTickets}}
+				<figure >
+					<section>
+						<section>
+							<img src={{ticketImage}}>
+							<p>at {{locationOfEvent}}</p>
+						</section>
+						<p>{{eventName}}</p>
+						<p>Hosted By: {{publisherOfTicket}}</p>
+						<p>Ticket Number: {{ticketNumber}}/{{maximumTicketSellable}}</p>
+						<p>Owned by: {{currentOwnerOfTicket}}</p>
+						<hr>
+						<p>Current Price: £{{currentPriceOfTicket}}</p>
+						<p>Previous Price: £{{previousPriceOfTicket}}</p>
+						<p>Last traded: {{lastTradedAt}}</p>
+						<hr>
+						<p><a href="/buyTicketForEvent/{{ticketHash}}">Purchase</a><a href="/detailsNFTTicket/{{ticketHash}}">Details</a></p>
+					</section>
+					
+				</figure>
+			{{/each}}
+		{{else}}
+		{{/if}}
+	</main>
+	</body>
+</html>

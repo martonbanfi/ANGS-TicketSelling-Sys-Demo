@@ -1,0 +1,55 @@
+
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Mint NFTTicket</title>
+		<meta name="description" content="form to mint a ticket">
+		<meta name="author" content="Marton Banfi">
+		<link href="/style.css" type="text/css" rel="stylesheet" />
+		<script type="module" src="/main.js"></script>
+	</head>
+	<body>
+		<header>
+			<nav>
+				<a href="/"><img src='../logo_bp_sportarena.png' onclick="/home"></a>
+				<ol>
+					<li class="logInName">Logged in as {{authorisedName}} - ({{userRole}}) </li>
+					<li><a href="/">Market Place</a></li>
+					<li class="now"><a href="/secondaryMarket">Secondary Market</a></li>
+					<li><a href="/myNFTTickets">Owned Tickets</a></li>
+					<li class="account"><a href="/account">Account</a>
+						<ol class="dropdown">
+							<li class="logInName">Credit: £{{balanceOfUser}}</li>
+							<li><a href="/logout">Log out</a></li>
+						</ol>
+					</li>
+				</ol>
+			</nav>
+		</header>
+		<section>
+			<h2>Buy a Ticket from {{correspondingTicket.currentOwnerOfTicket}}</h2>
+			<hr>
+			<h2><button type="button" onClick="location.href='/secondaryMarket'">Go back to the secondary market page</button></h2>
+		</section>
+	<main>
+		<form action="/buyTicketForEvent" method="post" enctype="multipart/form-data">
+			<p>Ticket for the {{correspondingTicket.eventName}} event.</p> 
+			<p>Please provide your details! </p>
+			<hr>
+			<p><label for="currentPriceOfTicket">Current Price: £ {{correspondingTicket.currentPriceOfTicket}}</label></p>
+			<hr>
+			<p>FROM: {{correspondingTicket.currentOwnerOfTicket}} ==========> TO: {{authorisedName}}</p>
+			<p>
+				<label for="newPriceOfTicket">Purchase for: £</label>
+				<input type="number" id="newPriceOfTicket" name="newPriceOfTicket" min="1">
+			</p>
+			
+			<!-- hiddenly adding the eventId as well-->
+			<input type="hidden" name="ticketHash" value={{correspondingTicket.ticketHash}} />
+			<p><input type="submit" value="Buy Ticket"></p>
+		</form>
+	</main>
+	</body>
+</html>

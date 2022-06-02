@@ -1,0 +1,111 @@
+
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Secondary Market</title>
+		<meta name="description" content="Details of a given ticket">
+		<meta name="author" content="Marton Banfi">
+		<link href="/style.css" type="text/css" rel="stylesheet" />
+		<script type="module" src="/main.js"></script>
+	</head>
+	<body>
+		<header>
+			{{#if userRole}}
+			{{#if authorisedName}}
+				<nav>
+					<a href="/"><img src='../logo_bp_sportarena.png' onclick="/home"></a>
+					<ol>
+						<li class="logInName">Logged in as {{authorisedName}} - ({{userRole}}) </li>
+						<li><a href="/">Market Place</a></li>
+						<li><a href="/secondaryMarket">Secondary Market</a></li>
+						<li class="now"><a href="/myNFTTickets">Owned Tickets</a></li>
+						<li class="account"><a>Account</a>
+							<ol class="dropdown">
+								<li class="logInName">Credit: £{{balanceOfUser}}</li>
+								<li><a href="/logout">Log out</a></li>
+							</ol>
+						</li>
+					</ol>
+				</nav>
+			{{else}}
+				<nav>
+					<a href="/"><img src='../logo_bp_sportarena.png' onclick="/home"></a>
+					<ol>
+						<li><a href="/">Market Place</a></li>
+						<li><a href="/login">Log in</a></li>
+					</ol>
+				</nav>
+			{{/if}}
+			{{else}}
+			{{#if authorisedName}}
+				<nav>
+					<a href="/"><img src='../logo_bp_sportarena.png' onclick="/home"></a>
+					<ol>
+						<li class="logInName">Logged in as {{authorisedName}} - ({{userRole}}) </li>
+						<li><a href="/">Market Place</a></li>
+						<li><a href="/secondaryMarket">Secondary Market</a></li>
+						<li class="account"><a>Account</a>
+							<ol class="dropdown">
+								<li><a href="/createEventPage">Create Event</a></li>
+								<li><a href="/logout">Log out</a></li>
+							</ol>
+						</li>
+					</ol>
+				</nav>
+			{{else}}
+				<nav>
+					<a href="/"><img src='../logo_bp_sportarena.png' onclick="/home"></a>
+					<ol>
+						<li><a href="/">MarketPlace</a></li>
+						<li><a href="/login">Log in</a></li>
+					</ol>
+				</nav>
+			{{/if}}
+		{{/if}}
+		</header>
+	<main>
+		<section>
+			<h2>NFT Ticket details of:</h2>
+			<h2>{{correspondingTicket.eventName}}</h2>
+			<h2> at {{correspondingTicket.locationOfEvent}}</h2>
+			<hr>
+			<h2><button type="button" onClick="location.href='../secondaryMarket'">Go back to the Secondary Market</button></h2>
+		</section>
+		<figure display="flex">
+			<section>
+				<section>
+				<img src={{correspondingTicket.ticketImage}}>
+				<p></p>
+				<img src={{correspondingTicket.eventImage}}>
+			</section>
+				<p>{{correspondingTicket.eventName}}</p>
+				<p>{{correspondingTicket.ticketType}} - {{correspondingTicket.ticketNumber}}/{{correspondingTicket.maximumTicketSellable}}</p>
+				<p>Publisher: {{correspondingTicket.publisherOfTicket}}</p>
+				<hr>
+				<p>Start Date: {{correspondingTicket.startDateOfEvent}}</p> 
+				<p>End Date: {{correspondingTicket.endDateOfEvent}}</p>
+				<hr>
+				<p>Current owner: {{correspondingTicket.currentOwnerOfTicket}}</p>
+				<p>Current price: £{{correspondingTicket.currentPriceOfTicket}}, {{#if wasCurrentPriceHigherThanPrevious}} ⬆️ {{else}} ⬇️ {{/if}} compared to history</p>
+				<p>Previous owner: {{correspondingTicket.previousOwnerOfTicket}}</p>
+				<p>Minted at: {{correspondingTicket.mintedAt}}</p>
+				<p>Last traded at: {{correspondingTicket.lastTradedAt}}</p>
+				<hr>
+				{{#if isOwner}}
+				<form action="/alterNFTTicketAppOnSecondaryMarket" method="post" enctype="multipart/form-data">
+					<label for="isOnSecondaryMarket">Appears on Secondary Market:</label>
+					<input type="checkbox" id="isOnSecondaryMarket" name="isOnSecondaryMarket" >
+					<script>
+						document.getElementById("isOnSecondaryMarket").checked={{correspondingTicket.isOnSecondaryMarket}};
+					</script>
+					<input type="hidden" name="ticketHash" value={{correspondingTicket.ticketHash}} />
+					<p><input type="submit" value="Put up to Secondary Market"></p>
+				</form>
+				{{/if}}
+			</section>
+		</figure>
+	</main>
+	</body>
+</html>

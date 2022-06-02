@@ -1,0 +1,71 @@
+
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Home Page</title>
+		<meta name="description" content="Page not found">
+		<meta name="author" content="Marton Banfi">
+		<link href="{{host}}/style.css" type="text/css" rel="stylesheet" />
+		<script type="module" src="/main.js"></script>
+	</head>
+	<body>
+		<header>
+			{{#if userRole}}
+			{{#if authorisedName}}
+				<nav>
+					<a href="/"><img src='logo_bp_sportarena.png' onclick="/home"></a>
+					<ol>
+						<li>Logged in as {{authorisedName}}</li>
+						<li class="now"><a href="/">Market Place</a></li>
+						<li><a href="/secondaryMarket">Secondary Market</a></li>
+						<li><a href="/myTicketsPage">Owned Tickets</a></li>
+						<li class="account"><a>Account</a>
+							<ol class="dropdown">
+								<li><a href="/logout">Log out</a></li>
+							</ol>
+						</li>
+					</ol>
+				</nav>
+			{{else}}
+				<nav>
+					<a href="/"><img src='logo_bp_sportarena.png' onclick="/home"></a>
+					<ol>
+						<li><a href="/">Market Place</a></li>
+						<li><a href="/login">Log in</a></li>
+					</ol>
+				</nav>
+			{{/if}}
+			{{else}}
+			{{#if authorisedName}}
+				<nav>
+					<a href="/"><img src='logo_bp_sportarena.png' onclick="/home"></a>
+					<ol>
+						<li>Logged in as {{authorisedName}}</li>
+						<li class="now"><a href="/">Market Place</a></li>
+						<li><a href="/secondaryMarket">Secondary Market</a></li>
+						<li class="account"><a>Account</a>
+							<ol class="dropdown">
+								<li><a href="/createEventPage">Create Event</a></li>
+								<li><a href="/logout">Log out</a></li>
+							</ol>
+						</li>
+					</ol>
+				</nav>
+			{{else}}
+				<nav>
+					<a href="/"><img src='logo_bp_sportarena.png' onclick="/home"></a>
+					<ol>
+						<li><a href="/">MarketPlace</a></li>
+						<li><a href="/login">Log in</a></li>
+					</ol>
+				</nav>
+			{{/if}}
+		{{/if}}
+		</header>
+		<main>
+			<p>PAGE NOT FOUND</p>
+		</main>
+	</body>
+</html>

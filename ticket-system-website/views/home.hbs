@@ -1,0 +1,98 @@
+
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Home Page</title>
+		<meta name="description" content="Home page of the ticket selling system">
+		<meta name="author" content="Marton Banfi">
+		<link href="/style.css" type="text/css" rel="stylesheet" />
+		<script type="module" src="/main.js"></script>
+	</head>
+	<body>
+		<header>
+			{{#if doesCustomer}}
+			{{#if authorisedName}}
+				<nav>
+					<a href="/"><img src='logo_bp_sportarena.png' onclick="/home"></a>
+					<ol>
+						<li class="logInName">Logged in as {{authorisedName}} - ({{userRole}})</li>
+						<li class="now"><a href="/">Market Place</a></li>
+						<li><a href="/secondaryMarket">Secondary Market</a></li>
+						<li><a href="/myNFTTickets">Owned Tickets</a></li>
+						<li class="account"><a>Account</a>
+							<ol class="dropdown">
+								<li class="logInName">Credit: £{{balanceOfUser}}</li>
+								<li><a href="/logout">Log out</a></li>
+							</ol>
+						</li>
+					</ol>
+				</nav>
+			{{else}}
+				<nav>
+					<a href="/"><img src='logo_bp_sportarena.png' onclick="/home"></a>
+					<ol>
+						<li><a href="/">Market Place</a></li>
+						<li><a href="/login">Log in</a></li>
+					</ol>
+				</nav>
+			{{/if}}
+			{{else}}
+			{{#if authorisedName}}
+				<nav>
+					<a href="/"><img src='logo_bp_sportarena.png' onclick="/home"></a>
+					<ol>
+						<li class="logInName">Logged in as {{authorisedName}} - ({{userRole}}) </li>
+						<li class="now"><a href="/">Market Place</a></li>
+						<li><a href="/secondaryMarket">Secondary Market</a></li>
+						<li class="account"><a>Account</a>
+							<ol class="dropdown">
+								<li class="logInName">Credit: £{{balanceOfUser}}</li>
+								<li><a href="/createEventPage">Create Event</a></li>
+								<li><a href="/logout">Log out</a></li>
+							</ol>
+						</li>
+					</ol>
+				</nav>
+			{{else}}
+				<nav>
+					<a href="/"><img src='logo_bp_sportarena.png' onclick="/home"></a>
+					<ol>
+						<li><a href="/">MarketPlace</a></li>
+						<li><a href="/login">Log in</a></li>
+					</ol>
+				</nav>
+			{{/if}}
+		{{/if}}
+		</header>
+		<section>
+			<h2>Welcome back !</h2>
+			<hr>
+			<h2>Market Place for upcomming events:</h2>
+		</section>
+	<main>
+		{{#if authorisedName}}
+			{{#each availableEvents}}
+				<figure >
+					<section>
+						<section>
+							<img src={{eventImage}}>
+						</section>
+						<p>{{eventName}}</p>
+						<hr>
+						<p>Hosted By: {{publisherOfTicket}},{{locationOfEvent}}</p>
+						<p>Ticket Number: {{ticketNumber}}/{{maximumTicketSellable}}</p>
+						<p>Date: {{startDateOfEvent}}</p>
+						<hr>
+						<p>Price: £{{currentPriceOfTicket}}</p>
+						
+						<p><a href="/mintTicketForEvent/{{eventId}}">Mint a Ticket</a></p>
+					</section>
+				</figure>
+			{{/each}}
+		{{else}}
+		{{/if}}
+	</main>
+	</body>
+</html>

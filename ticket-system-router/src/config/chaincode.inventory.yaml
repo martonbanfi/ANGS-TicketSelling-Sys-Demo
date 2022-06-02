@@ -1,0 +1,109 @@
+# Defines the avaliable channel for this gateway
+channels:
+  none: &none
+    name: none
+  transaction: &transaction
+    name: mychannel
+    
+#Defines the avalilable methods for this gateway based on the channels above
+ccMethods: 
+  - name: getVersion
+    channelName: *transaction
+    chaincodeName: contract
+    smartContractName: DefaultContract
+    serviceName: getVersion
+    processType: evaluate
+    defaultUser: system
+
+  - name: enrollUser
+    channelName: none
+
+    #NFTTicket
+  - name: getNFTTicket
+    channelName: *transaction
+    chaincodeName: contract
+    smartContractName: TicketContract
+    serviceName: getNFTTicket
+    processType: evaluate
+    defaultUser: system
+
+  - name: listNFTTickets
+    channelName: *transaction
+    chaincodeName: contract
+    smartContractName: TicketContract
+    serviceName: listNFTTickets
+    processType: evaluate
+    defaultUser: system
+
+  - name: listOwnedNFTTickets
+    channelName: *transaction
+    chaincodeName: contract
+    smartContractName: TicketContract
+    serviceName: listOwnedNFTTickets
+    processType: evaluate
+    defaultUser: system   
+
+  - name: mintNFTTicket
+    channelName: *transaction
+    chaincodeName: contract
+    smartContractName: TicketContract
+    serviceName: mintNFTTicket
+    processType: submit
+    defaultUser: system
+    
+  - name: modifyNFTTicket
+    channelName: *transaction
+    chaincodeName: contract
+    smartContractName: TicketContract
+    serviceName: modifyNFTTicket
+    processType: submit
+    defaultUser: system
+    
+  - name: removeNFTTicket
+    channelName: *transaction
+    chaincodeName: contract
+    smartContractName: TicketContract
+    serviceName: removeNFTTicket
+    processType: submit
+    defaultUser: system     
+  # event 
+  
+  - name: getEvent
+    channelName: *transaction
+    chaincodeName: contract
+    smartContractName: EventContract
+    serviceName: getEvent
+    processType: evaluate
+    defaultUser: system
+
+  - name: listAvailableEvents
+    channelName: *transaction
+    chaincodeName: contract
+    smartContractName: EventContract
+    serviceName: listAvailableEvents
+    processType: evaluate
+    defaultUser: system     
+
+  - name: createEvent
+    channelName: *transaction
+    chaincodeName: contract
+    smartContractName: EventContract
+    serviceName: createEvent
+    processType: submit
+    defaultUser: system
+    
+  - name: modifyEvent
+    channelName: *transaction
+    chaincodeName: contract
+    smartContractName: EventContract
+    serviceName: modifyEvent
+    processType: submit
+    defaultUser: system
+    
+  - name: removeEvent
+    channelName: *transaction
+    chaincodeName: contract
+    smartContractName: EventContract
+    serviceName: removeEvent
+    processType: submit
+    defaultUser: system    

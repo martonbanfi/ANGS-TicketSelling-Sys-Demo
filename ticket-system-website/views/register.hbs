@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Create an Account</title>
+		<meta name="description" content="add a new account to the system">
+		<meta name="author" content="Marton Banfi">
+		<link href="{{host}}/style.css" type="text/css" rel="stylesheet" />
+		<script type="module" src="/main.js"></script>
+	</head>
+	<body>
+		<header>
+		<nav>
+			<a href="/"><img src='logo_bp_sportarena.png' onclick="/home"></a>
+				<ol>
+					<li><a href="/login">Log in</a></li>
+				</ol>
+			</nav>
+		</header>
+		<main>
+			<section>
+		<form action="/register" method="post">
+			<p>
+				<label for="user">Username</label><br />
+				<input type="text" name="username" placeholder="your preferred username" value="{{body.user}}">
+			</p>
+			<p>
+				<label for="pass">Password</label><br />
+				<input type="password" name="password" placeholder="your chosen password">
+			</p>
+			<p>
+				<label for="pass2">Password (again)</label><br />
+				<input type="password" name="password2" placeholder="your chosen password">
+			</p>
+			<p>
+				<label for="roleToBeEnrolledIn">Registering as:</label><br />
+				<select name="roleToBeEnrolledIn" placeholder="The roleToBeEnrolledIn" value="{{body.name}}" autofocus required>
+					<option value="customer">Customer</option>
+					<option value="partner">partner</option>
+				</select>
+			</p>
+			<p><input type="submit" value="Create"></p>
+		</form>
+		</section>
+		</main>
+	</body>
+</html>

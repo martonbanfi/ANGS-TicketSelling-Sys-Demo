@@ -1,0 +1,372 @@
+openapi: 3.0.0
+info:
+  title: Angus Router default REST API definition
+  version: '0.1'
+tags:
+  - name: Ticket
+    description: API calls for the NFTTickets on the ledger
+
+# These components are relatively linked to the angus-components. When you move this file, you have to update the links below.
+components:
+  angus:    
+    parameters:
+      HeaderUserId:
+        $ref: '../../../node_modules/angus-router/dist/config/openapi/angus-components.yaml#/components/parameters/HeaderUserId'
+    schemas:
+      mResHealthcheck:
+        $ref: '../../../node_modules/angus-router/dist/config/openapi/angus-components.yaml#/components/schemas/mResHealthcheck'
+      mReqEnrollUser:
+        $ref: '../../../node_modules/angus-router/dist/config/openapi/angus-components.yaml#/components/schemas/mReqEnrollUser'
+      mResEnrollUser:
+        $ref: '../../../node_modules/angus-router/dist/config/openapi/angus-components.yaml#/components/schemas/mResEnrollUser'
+    responses:
+      BadRequest:
+        $ref: '../../../node_modules/angus-router/dist/config/openapi/angus-components.yaml#/components/responses/BadRequest'
+      InternalError:
+        $ref: '../../../node_modules/angus-router/dist/config/openapi/angus-components.yaml#/components/responses/InternalError'
+  ticketSellingSystem:
+    parameters:
+      CommonId:
+        name: id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      CommonEventId:
+        name: id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+      TOwnerOfNFT:
+        name: owner
+        in: query
+        required: true
+        schema:
+          type: string
+  
+paths:
+  #############
+  # Maintenance
+  #############
+  /maintenance/healthcheck:
+    x-angus-config:
+      - getVersion
+    x-angus-custom-handler: customHandler
+    get:
+      tags:
+        - Maintenance
+      responses:
+        '200':
+          description: Status of the fabric system
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/angus/schemas/mResHealthcheck'
+        '400':
+          $ref: '#/components/angus/responses/BadRequest'
+        '500':
+          $ref: '#/components/angus/responses/InternalError'
+  ###################
+  # Admin requests  #
+  ###################
+  /admin/enroll-user:
+    x-angus-config:
+      - enrollUser
+    x-angus-custom-handler: customHandler
+    post:
+      tags:
+        - Admin
+      summary: Create user
+      description: >
+        Creates the user and/or moves its corresponding certificate into the wallet. If a password is provided, then only the 'enroll'
+        operation is being executed (being creating a certificate and import it into the wallet), in other cases the user is created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/angus/schemas/mReqEnrollUser'
+      responses:
+        '200':
+          description: Data of the newly created user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/angus/schemas/mResEnrollUser'
+        '400':
+          $ref: '#/components/angus/responses/BadRequest'
+        '500':
+          $ref: '#/components/angus/responses/InternalError'        
+
+  #################################
+  # Business requests - NFTTicket
+  #################################
+  /document/get-nftticket:
+    x-angus-config:
+      - getNFTTicket
+    get:
+      tags:
+        - Ticket
+      summary: returns NFTTicket based on its identifier
+      parameters:
+        - $ref: '#/components/angus/parameters/HeaderUserId'
+        - $ref: '#/components/ticketSellingSystem/parameters/CommonId'
+      responses:
+        '200':
+          description: Data of the queried NFTTicket
+          content:
+            application/json:
+              schema:
+                $ref: 'ticketsystem-components.yaml#/components/schemas/mResTicket'
+        '400':
+          $ref: '#/components/angus/responses/BadRequest'
+        '500':
+          $ref: '#/components/angus/responses/InternalError'
+
+  /document/list-nfttickets:
+    x-angus-config:
+      - listNFTTickets
+    get:
+      tags:
+        - Ticket
+      summary: Returns all NFTTickets on the ledger
+      parameters:
+        - $ref: '#/components/angus/parameters/HeaderUserId'
+      responses:
+        '200':
+          description: The list of all NFTTickets in the ledger
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'ticketsystem-components.yaml#/components/schemas/mResTicket'
+        '400':
+          $ref: '#/components/angus/responses/BadRequest'
+        '500':
+          $ref: '#/components/angus/responses/InternalError'
+
+  /document/list-owned-nfttickets:
+    x-angus-config:
+      - listOwnedNFTTickets
+    get:
+      tags:
+        - Ticket
+      summary: Returns all user owned NFTTickets on the ledger
+      parameters:
+        - $ref: '#/components/angus/parameters/HeaderUserId'
+        - $ref: '#/components/ticketSellingSystem/parameters/TOwnerOfNFT'
+      responses:
+        '200':
+          description: The list of all NFTTickets in the ledger
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'ticketsystem-components.yaml#/components/schemas/mResTicket'
+        '400':
+          $ref: '#/components/angus/responses/BadRequest'
+        '500':
+          $ref: '#/components/angus/responses/InternalError'               
+          
+  /document/mint-nftticket:
+    x-angus-config:
+      - mintNFTTicket
+    
+    put:
+      tags:
+        - Ticket
+      summary: Mints a NFTTicket based on provided parameters
+      parameters:
+        - $ref: '#/components/angus/parameters/HeaderUserId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'ticketsystem-components.yaml#/components/schemas/mReqMintNFTTicket'
+      responses:
+        '200':
+          description: Data of the newly minted NFTTicket
+          content:
+            application/json:
+              schema:
+                $ref: 'ticketsystem-components.yaml#/components/schemas/mResTicket'
+        '400':
+          $ref: '#/components/angus/responses/BadRequest'
+        '500':
+          $ref: '#/components/angus/responses/InternalError'
+
+  /document/modify-nftticket:
+    x-angus-config:
+      - modifyNFTTicket
+    post:
+      tags:
+        - Ticket
+      summary: Modifies NFTTicket based on the provided parameters
+      parameters:
+        - $ref: '#/components/angus/parameters/HeaderUserId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'ticketsystem-components.yaml#/components/schemas/mReqModifyNFTTicket'
+      responses:
+        '200':
+          description: Data of the newly modified NFTTicket
+          content:
+            application/json:
+              schema:
+                $ref: 'ticketsystem-components.yaml#/components/schemas/mResTicket'
+        '400':
+          $ref: '#/components/angus/responses/BadRequest'
+        '500':
+          $ref: '#/components/angus/responses/InternalError' 
+
+  /document/remove-nftticket:
+    x-angus-config:
+      - removeNFTTicket
+    delete:
+      tags:
+        - Ticket
+      summary: Deletes the given NFTTicket
+      parameters:
+        - $ref: '#/components/angus/parameters/HeaderUserId'
+        - $ref: '#/components/ticketSellingSystem/parameters/CommonId'
+      responses:
+        '200':
+          description: The result of the deletion operation
+          content:
+            application/json:
+              schema:
+                $ref: 'ticketsystem-components.yaml#/components/schemas/mResStatus'
+        '400':
+          $ref: '#/components/angus/responses/BadRequest'
+        '500':
+          $ref: '#/components/angus/responses/InternalError'
+
+  #################################
+  # Business requests - Event
+  #################################
+  /document/get-event:
+    x-angus-config:
+      - getEvent
+    get:
+      tags:
+        - Event
+      summary: returns Event based on its identifier
+      parameters:
+        - $ref: '#/components/angus/parameters/HeaderUserId'
+        - $ref: '#/components/ticketSellingSystem/parameters/CommonEventId'
+      responses:
+        '200':
+          description: Data of the queried event
+          content:
+            application/json:
+              schema:
+                $ref: 'ticketsystem-components.yaml#/components/schemas/mResEvent'
+        '400':
+          $ref: '#/components/angus/responses/BadRequest'
+        '500':
+          $ref: '#/components/angus/responses/InternalError'
+
+  /document/list-available-events:
+    x-angus-config:
+      - listAvailableEvents
+    get:
+      tags:
+        - Event
+      summary: Returns all available events on the ledger
+      parameters:
+        - $ref: '#/components/angus/parameters/HeaderUserId'
+      responses:
+        '200':
+          description: The list of all events in the ledger
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: 'ticketsystem-components.yaml#/components/schemas/mResEvent'
+        '400':
+          $ref: '#/components/angus/responses/BadRequest'
+        '500':
+          $ref: '#/components/angus/responses/InternalError'          
+          
+  /document/create-event:
+    x-angus-config:
+      - createEvent
+    
+    put:
+      tags:
+        - Event
+      summary: Creates an event based on provided parameters
+      parameters:
+        - $ref: '#/components/angus/parameters/HeaderUserId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'ticketsystem-components.yaml#/components/schemas/mReqCreateEvent'
+      responses:
+        '200':
+          description: Data of the newly created event
+          content:
+            application/json:
+              schema:
+                $ref: 'ticketsystem-components.yaml#/components/schemas/mResEvent'
+        '400':
+          $ref: '#/components/angus/responses/BadRequest'
+        '500':
+          $ref: '#/components/angus/responses/InternalError'
+
+  /document/modify-event:
+    x-angus-config:
+      - modifyEvent
+    x-angus-custom-handler: customHandler
+    post:
+      tags:
+        - Event
+      summary: Modifies event based on the provided parameters
+      parameters:
+        - $ref: '#/components/angus/parameters/HeaderUserId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: 'ticketsystem-components.yaml#/components/schemas/mReqModifyEvent'
+      responses:
+        '200':
+          description: Data of the newly modified event
+          content:
+            application/json:
+              schema:
+                $ref: 'ticketsystem-components.yaml#/components/schemas/mResEvent'
+        '400':
+          $ref: '#/components/angus/responses/BadRequest'
+        '500':
+          $ref: '#/components/angus/responses/InternalError' 
+
+  /document/remove-event:
+    x-angus-config:
+      - removeEvent
+    delete:
+      tags:
+        - Event
+      summary: Deletes the given event
+      parameters:
+        - $ref: '#/components/angus/parameters/HeaderUserId'
+        - $ref: '#/components/ticketSellingSystem/parameters/CommonEventId'
+      responses:
+        '200':
+          description: The result of the deletion operation
+          content:
+            application/json:
+              schema:
+                $ref: 'ticketsystem-components.yaml#/components/schemas/mResStatus'
+        '400':
+          $ref: '#/components/angus/responses/BadRequest'
+        '500':
+          $ref: '#/components/angus/responses/InternalError'

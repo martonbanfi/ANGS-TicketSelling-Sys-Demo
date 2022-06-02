@@ -1,0 +1,13 @@
+{
+  "ticket_hash": "3fa85f64-1111-4562-b3fc-2c963f66afa1",
+  "event_id": "3fa85f64-5717-4562-b3fc-2c963f66afa1",
+  "current_owner_of_ticket": "Steve",
+  "current_price_of_ticket": 69,
+  "previous_owner_of_ticket": "Steve",
+  "previous_price_of_ticket": 40,
+  "mintedAt":"",
+  "last_traded_at":"",
+  "ticket_number": 69,
+  "ticket_type":"early bird",
+  "seat_number":"23/A"
+}

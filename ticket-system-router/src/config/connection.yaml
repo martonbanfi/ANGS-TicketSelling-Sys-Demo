@@ -1,0 +1,141 @@
+version: "1.0"
+name: ticket_selling_system_network
+
+client:
+  # Which organization does this application instance belong to? The value must be the name of an org
+  # defined under "organizations" ... see below
+  organization: Org1
+
+  # Some SDKs support pluggable KV stores, the properties under "credentialStore"
+  # are implementation specific
+  credentialStore:
+    path: "/home/vagrant/.angus/store"
+    cryptoStore:
+      path: "/home/vagrant/.angus/store"
+
+  connection:
+    timeout:
+      peer:
+        endorser: 120
+        eventHub: 60
+        eventReg: 3
+      orderer: 30
+
+#
+# How a channel is defined and the peers and orderers on that channel. When the
+# client.getChannel() call is used the client will pre-populate the channel with
+# orderers and peers as defined in this section.
+#
+channels:
+  # name of the channel
+  mychannel:
+    # List of orderers designated by the application to use for transactions on this channel.
+    # The values must be orderer names defined under "orderers" section
+    orderers:
+      - orderer.example.com
+
+    # List of peers from participating organizations
+    peers:
+      peer0.org1.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+        discover: true
+      peer0.org2.example.com:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+        discover: true
+      
+
+#
+# list of participating organizations in this network
+#
+organizations:
+  Org1:
+    mspid: Org1MSP
+    # The peers that are known to be in this organization
+    peers:
+      - peer0.org1.example.com
+
+    # Certificate Authorities issue certificates for identification purposes in a Fabric based
+    # network. Typically certificates provisioning is done in a separate process outside of the
+    # runtime network. Fabric-CA is a special certificate authority that provides a REST APIs for
+    # dynamic certificate management (enroll, revoke, re-enroll). The following section is only for
+    # Fabric-CA servers.
+    certificateAuthorities:
+      - angusCa
+
+    # the profile will contain public information about organizations other than the one it belongs to.
+    # These are necessary information to make transaction lifecycles work, including MSP IDs and
+    # peers with a public URL to send transaction proposals. The file will not contain private
+    # information reserved for members of the organization, such as admin key and certificate,
+    # fabric-ca registrar enroll ID and secret, etc.
+  Org2:
+    mspid: Org2MSP
+    peers:
+      - peer0.org2.example.com
+    certificateAuthorities:
+      - angusCa
+
+#
+# List of orderers to send transaction and channel create/update requests.
+#
+orderers:
+  orderer.example.com:
+    url: grpcs://localhost:7050
+
+    # these are standard properties defined by the gRPC library
+    # they will be passed in as-is to gRPC client constructor
+    grpcOptions:
+      ssl-target-name-override: orderer.example.com
+    tlsCACerts:
+      path: ../ticket-network/organizations/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
+
+#
+# List of peers to send various requests to, including endorsement, query
+# and event listener registration.
+#
+peers:
+  peer0.org1.example.com:
+    # this URL is used to send endorsement and query requests
+    url: grpcs://localhost:7051
+    tlsCACerts:
+      path: ../ticket-network/organizations/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
+    grpcOptions:
+      ssl-target-name-override: peer0.org1.example.com
+      hostnameOverride: peer0.org1.example.com
+
+  peer0.org2.example.com:
+    url: grpcs://localhost:9051
+    tlsCACerts:
+      path: ../ticket-network/organizations/peerOrganizations/org2.example.com/tlsca/tlsca.org2.example.com-cert.pem
+    grpcOptions:
+      ssl-target-name-override: peer0.org2.example.com
+      hostnameOverride: peer0.org2.example.com
+
+
+#
+# Fabric-CA is a special kind of Certificate Authority provided by Hyperledger Fabric which allows
+# certificate management to be done via REST APIs. Application may choose to use a standard
+# Certificate Authority instead of Fabric-CA, in which case this section would not be specified.
+#
+certificateAuthorities:
+  angusCa:
+    url: https://localhost:7054
+    # the properties specified under this object are passed to the 'http' client verbatim when
+    # making the request to the Fabric-CA server
+    httpOptions:
+      verify: false
+    # The optional name of the CA.
+    caName: ca-org1
+    # Fabric-CA supports dynamic user enrollment via REST APIs. A "root" user, a.k.a registrar, is
+    # needed to enroll and invoke new users
+    registrar:
+      enrollId: admin
+      enrollSecret: adminpw
+    tlsCACerts:
+      path: ../ticket-network/organizations/fabric-ca/org1/ca-cert.pem
+    

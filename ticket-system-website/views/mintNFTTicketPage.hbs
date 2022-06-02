@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Mint NFTTicket</title>
+		<meta name="description" content="form to mint a ticket">
+		<meta name="author" content="Marton Banfi">
+		<link href="/style.css" type="text/css" rel="stylesheet" />
+		<script type="module" src="/main.js"></script>
+	</head>
+	<body>
+		<header>
+			<nav>
+				<a href="/"><img src='../logo_bp_sportarena.png' onclick="/home"></a>
+				<ol>
+					<li class="logInName">Logged in as {{authorisedName}} - ({{userRole}}) </li>
+					<li><a href="/">Market Place</a></li>
+					<li ><a href="/secondaryMarket">Secondary Market</a></li>
+					<li class="now"><a href="/myNFTTickets">Owned Tickets</a></li>
+					<li class="account"><a href="/account">Account</a>
+						<ol class="dropdown">
+							<li class="logInName">Credit: £{{balanceOfUser}}</li>
+							<li><a href="/logout">Log out</a></li>
+						</ol>
+					</li>
+				</ol>
+			</nav>
+		</header>
+		<section>
+			<h2>Mint a Ticket </h2>
+			<hr>
+			<h2><button type="button" onClick="location.href='home'">Go back to the home page</button></h2>
+		</section>
+	<main>
+		<form action="/mintTicketForEvent" method="post" enctype="multipart/form-data">
+			<p>Minting a ticket for the {{correspondingEvent.eventName}} event.</p>
+			<p> Please provide the neccessary details! </p>
+			<hr>
+			<p><label for="currentPriceOfTicket">Price: £ {{correspondingEvent.currentPriceOfTicket}}</label></p>
+			<p>
+				<label for="ticketType">Ticket type:</label><br />
+				<select name="ticketType" placeholder="The ticketType" value="{{body.name}}" autofocus required>
+					<option value="Early Bird">Early Bird</option>
+					<option value="Standard">Standard</option>
+					<option value="WIP">WIP</option>
+					<option value="Support bundle">Support bundle</option>
+				</select>
+			</p>
+			<p>
+			<p>
+				<label for="ticketNumber">Ticket Number, choose one from options still available:</label><br />
+				<input type="range" min="1" max={{correspondingEvent.maximumTicketSellable}} value="69" name="ticketNumber" id="ticketNumber">
+					<label>Currently chosen:</label><label id="number"></label>
+					<script>
+						let slider_ticketNumber = document.getElementById("ticketNumber");
+						let valueNumber_ticketNumber = document.getElementById("number");
+						valueNumber_ticketNumber.innerHTML = slider_ticketNumber.value;
+						slider_ticketNumber.oninput = function() {valueNumber_ticketNumber.innerHTML = this.value;}
+					</script>
+			</p>
+			<!-- hiddenly adding the eventId as well-->
+			<input type="hidden" name="eventId" value={{correspondingEvent.eventId}} />
+			<p><input type="submit" value="Mint Ticket"></p>
+		</form>
+	</main>
+	</body>
+	
+</html>

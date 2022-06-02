@@ -1,0 +1,580 @@
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
+}
+
+nav{
+text-align:center;
+}
+
+nav ol{
+float:right;
+padding:0vw;
+margin-right:1%;
+margin-top: 1.9%;
+text-decoration: none;
+list-style-type: none;
+}
+
+nav > ol> li{
+background-color: #ed7410;
+box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+			inset -2px -2px 3px rgba(0, 0, 0, .6);
+list-style-type: none;
+width:auto;
+height:auto;
+padding:0.5em;
+display: inline-block;
+text-align:center;
+margin:auto;
+border-radius: 9%;
+position: relative;
+}
+
+li.logInName{
+	all: initial;
+	color: white;
+	text-decoration: none;
+	font-size: 1.3vw;	
+	font-weight: bold;
+	padding:0.5em;
+	display: inline-block;
+	text-align:center;
+	margin:auto;
+	position: relative;
+	}
+
+nav ol li a{
+display: block;
+padding: 14px, 14px;
+text-decoration: none;
+}
+
+ol.dropdown{
+display:none;
+text-decoration: none;
+}
+
+ol.dropdown> li{
+margin-top:0.5vw;
+margin-bottom:0.5vw;	
+}
+
+li.account{
+margin-left:0;
+}
+
+li.account:hover >ol.dropdown{
+display:block;
+}
+
+ol.dropdown> li> a{
+font-size: 1vw;
+}
+
+ol.dropdown> li> a:hover{
+background-color: #ed7410;
+}
+
+li:hover{
+background-color: #e6a570;
+}
+
+li.now{
+background-color: #e6a570;
+}
+
+li>a{
+color: white;
+text-decoration: none;
+font-size: 1.3vw;	
+font-weight: bold;
+}
+
+aside {
+position: fixed;
+right: 0;
+top: 12vw;
+font-size: 1.5vw;
+width: 20%;
+float: right;
+margin-right:5vw;
+border-bottom: 0.2vw solid grey;
+}
+
+header {
+background-color: #333;
+border-bottom: 5px solid grey;
+height: 6vw;
+}
+
+h1{
+margin: 0;
+padding: 0;
+color: white;
+}
+
+h1 {
+padding: 0.4vw;
+float: left;
+font-size: 3vw;
+margin-left: 4vw;
+margin-top: 1%;
+}
+
+h2:first-child{
+margin-top: 1vw;
+margin-bottom: 0;
+font-size: 2.4vw;
+}
+
+h2 {
+padding: 0;
+font-size: 1.4vw;
+margin-top: 0;
+margin-left:0;
+color: black;
+}
+
+h3 {
+margin: 0;
+padding: 0;
+font-size: 2vw;
+margin-left: 0;
+margin-bottom: 2vw;
+color: black;
+}
+
+/*log in button*/
+header > a {
+margin-top: 1vw;
+margin-right: 1vw;
+font-size: 1.3vw;
+}
+
+header > table {
+margin-top: 1vw;
+margin-right: 1vw;
+font-size: 1.3vw;
+width:90%;
+height:4vw;
+margin-left:5%; 
+margin-right:5%;
+border-bottom: 5px solid grey;
+}
+
+table> td {
+margin-top: 1vw;
+margin-right: 1vw;
+font-size: 1.3vw;
+text-align:center;
+}
+
+p, legend {
+font-size: 1.5vw;
+}
+
+main {
+margin-right: 10%;
+margin-left: 0;
+margin-top: 0.5em;
+padding: 1em;
+box-sizing: border-box;
+margin-left: auto;
+margin-right: auto;
+display: block;
+}
+
+main>form{
+margin-right: 10%;
+margin-top: 0.5em;
+padding: 1em;
+box-sizing: border-box;
+text-align:center; 
+background-repeat: no-repeat;
+background-size: contain;
+margin-left:20vw;
+font-size: 4.5vw;
+width: 50%;
+height: 50%;
+color: rgb(0, 0, 0);
+background-color: #aeaeae;
+border-style: outset;
+}
+
+form>p{
+margin-left: 3vw;
+}
+
+main>form>p:first-child{
+margin-top: 5.5vw;
+}
+
+form>p>img{
+width: 5vw;
+  height: 4vw;
+}
+
+figure>section{
+overflow:hidden;
+margin-bottom:2vw;
+margin-left: 30%;
+padding-right:0;
+width:10%;
+}
+
+section>section>img{
+	
+padding-right:0;
+width:80%;
+}
+
+section>section:first-child{
+	overflow:auto;
+	padding-right:0;
+	width: 50%;
+}
+section>section{
+	overflow:auto;
+	padding-right:0;
+	width: 50%;
+	float: left;
+}
+
+figure>section:first-child{
+margin-left:1vw;
+float:left;
+padding:1%;
+margin-left: 20%;
+width:50%;
+border-radius: 25px;
+background: #80857a;
+}
+
+main figure:first-of-type{
+margin-top:5vw;
+}
+
+section>p>a{
+text-decoration:none;
+border: 0;
+float:right;
+line-height: 2.5;
+padding: 0 20px;
+font-size: 1.3vw;
+text-align: center;
+color: #fff;
+text-shadow: 1px 1px 1px #000;
+border-radius: 10px;
+background-color: #ed7410;
+box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+			inset -2px -2px 3px rgba(0, 0, 0, .6);
+}
+
+
+section>p>a:active {
+box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+			inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+
+section > p:first-of-type{
+font-weight:bold;
+}
+
+section>h2>button{
+text-decoration:none;
+border: 0;
+float:left;
+line-height: 2.5;
+padding: 0 20px;
+font-size: 1.3vw;
+text-align: center;
+color: #fff;
+text-shadow: 1px 1px 1px #000;
+border-radius: 10px;
+background-color: #ed7410;
+box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+			inset -2px -2px 3px rgba(0, 0, 0, .6);
+}
+
+section>h2>button:hover, section>p>a:hover, input[type="submit"]:hover{
+text-decoration: none;
+background-color: #e6a570;
+cursor: pointer;
+}
+
+section>article {
+width: 50vw;
+font-weight:15vw;
+}
+section>span>hr{
+margin-right:13vw;
+}
+
+main a {
+color: black;
+text-decoration: underline;
+}
+
+section {
+width: 30vw;
+margin-left: 6%;
+}
+
+figure {
+padding-bottom:5vw;
+}
+
+section > p {
+margin: 0;
+padding: 0;
+margin-bottom: 0.5vw;
+}
+
+section > h3 {
+margin: 0;
+padding: 0;
+font-size: 1.8vw;
+}
+
+small {
+display: block;
+text-align: right;
+}
+
+/* ===== FORMS ===== */
+
+fieldset {
+position: relative;
+width: 25vw;
+border: 1px solid #CCC;
+padding-top: 4vw;
+}
+
+legend {
+position:absolute;
+top:0;
+left:0;
+width: 25.5vw;
+background-color: #ccc;
+border-bottom: 5px solid grey;
+padding: 0.6vw;
+}
+
+input, textarea {
+box-sizing: border-box;
+}
+
+input:focus {
+outline:none;
+}
+
+label{
+font-weight:bold;
+}
+
+label[for="avatar"], .button, header > a, body > a, .custom-file-upload {
+background-color: grey;
+border: 2px solid grey;
+color: white;
+padding: 0.4vw 0.8vw;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 1.5vw;
+}
+
+input[type="submit"]{
+padding: 0.4vw 0.8vw;
+text-align: center;
+display: inline-block;
+text-decoration:none;
+border: 0;
+line-height: 2.5;
+padding: 0 20px;
+font-size: 1.3vw;
+text-align: center;
+color: #fff;
+text-shadow: 1px 1px 1px #000;
+border-radius: 10px;
+background-color: #ed7410;
+box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+			inset -2px -2px 3px rgba(0, 0, 0, .6);
+}
+
+
+label[for="avatar"]:hover, header > a:hover, .custom-file-upload:hover, .add:hover {
+color: grey;
+background-color: white;
+cursor: pointer;
+}
+
+input[type="text"], input[type="date"], input[type="email"], input[type="password"], input[type="tel"] , select {
+font-size: 1.5vw;
+width: 30vw;
+border: 1px solid #CCC;
+padding: 0.5vw;
+border-radius: 0.6vw;
+}
+
+textarea{
+font-size: 1.5vw;
+width: 70%;
+border: 1px solid #CCC;
+padding: 0.5vw;
+border-radius: 0.6vw;
+}
+
+form>p>label:nth-child(2){
+background-color: #ed7410;
+box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+			inset -2px -2px 3px rgba(0, 0, 0, .6);
+list-style-type: none;
+width:10vw;
+height:10vw;
+padding:0.5em;
+text-align:center;
+margin:auto;
+border-radius: 9%;
+padding: 14px, 14px;
+text-decoration: none;
+color:white;
+font-size:1vw;
+}
+
+form>p>label:nth-child(2):hover {
+background-color: #e6a570;
+cursor: pointer;
+}
+
+textarea {
+height: 10vw;
+width:30vw;
+resize: none;
+}
+
+input:required, textarea:required {
+border-width: 2px;
+}
+
+input:invalid, textarea:invalid {
+border-color: red;
+}
+input:valid, textarea:valid {
+border-color: darkgreen;
+}
+
+
+select {
+width: 26.3vw;
+-webkit-appearance: none;
+-webkit-border-radius: 0px;
+}
+
+form > br {
+line-height: 3vw;
+}
+
+dl {
+width: 35vw;
+overflow: hidden;
+padding: 0;
+margin: 0;
+font-size: 1.5vw;
+}
+
+dt {
+float: left;
+width: 10.5vw;
+padding: 0.5vw;
+margin: 0
+}
+
+dd {
+float: left;
+width: 21vw;
+padding: 0.5vw;
+margin: 0
+}
+
+/* ===== TABLES ===== */
+
+table {
+border-collapse: collapse;
+margin: auto;
+}
+
+table img {
+width: 100px;
+}
+
+tr:nth-child(odd) {
+background: #DDD;
+}
+
+td, th {
+/* border: 1px solid grey; */
+padding: 0.5vw;
+font-size: 1.5vw;
+text-align: center;
+}
+
+/* ===== ADD BUTTON ===== */
+
+button#add {
+display: block;
+position: fixed;
+bottom: 1em;
+right: 1em;
+z-index: 5;
+background-color: grey;
+color: white;
+font-size: 5em;
+width: 1.2em;
+block-size: border-box;
+border-radius: 2em;
+border: none;
+cursor: pointer;
+}
+
+.add {
+display: block;
+position: fixed;
+bottom: 1em;
+right: 1em;
+z-index: 5;
+padding: 1em;
+}
+
+button#add:hover {
+background-color: white;
+color: grey;
+}
+
+input[type="file"] {
+display: none;
+}
+
+input[type="number"] {
+width:31%;
+
+}
+form img {
+position: relative;
+top: 1.5em;
+left: 1em;
+height: 50px;
+}
+nav>a>img{
+position: relative;
+margin-top: 1%;
+width:33%;
+height:45%;
+float:left;
+}
+figure>section>img{
+object-fit:fill;
+height: 15vw;
+width: 11vw;
+}
